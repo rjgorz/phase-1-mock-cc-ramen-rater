@@ -39,6 +39,14 @@
       "image": "./assets/ramen/kojiro.jpg",
       "rating": 6,
       "comment": "Perfect for a cold night."
+    },
+    {
+      "name": "Spicy Miso Ramen",
+      "restaurant": "Goro Ramen",
+      "image": "https://images.squarespace-cdn.com/content/v1/57ad1c4a6a49631344275561/7cca07d0-7ba9-441f-a63d-9bcd2bf0bc75/IMG_9493.jpg?format=1000w",
+      "rating": "10",
+      "comment": "The best around!",
+      "id": 6
     }
   ]
 }

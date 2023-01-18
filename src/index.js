@@ -3,6 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     getRamenImages();
 })
 
+// const deleteBtn = document.createElement('button');
+// const br = document.createElement('br');
+// deleteBtn.setAttribute('id', 'deleteBtn');
+// deleteBtn.textContent = "Delete";
+// deleteBtn.addEventListener('click', () => {
+// });
+// document.querySelector('#ramen-detail').append(br, deleteBtn);
+
 function getRamenImages() {
     fetch('http://localhost:3000/ramens')
     .then(res => res.json())
@@ -39,8 +47,8 @@ function renderRamenDetails(ramen) {
     ramenComment.textContent = ramen.comment;
 }
 
-const form = document.querySelector('#new-ramen');
-form.addEventListener('submit', (e) => {
+const newForm = document.querySelector('#new-ramen');
+newForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const newRamen = {
         name: e.target.name.value,
@@ -50,6 +58,46 @@ form.addEventListener('submit', (e) => {
         comment: e.target['new-comment'].value
     }
 
-    renderRamenImages([newRamen]);
-    form.reset();
+    addNewRamen(newRamen);
+    newForm.reset();
 });
+
+const editForm = document.querySelector('#edit-ramen');
+editForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const editedRamen = {
+        name: document.querySelector('.name').textContent,
+        restaurant: document.querySelector('.restaurant').textContent,
+        image: document.querySelector('.detail-image').src,
+        rating: e.target.rating.value,
+        comment: e.target['new-comment'].value
+    }
+
+    renderRamenDetails(editedRamen);
+    editForm.reset();
+})
+
+function addNewRamen(ramen) {
+    fetch('http://localhost:3000/ramens', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(ramen)
+    })
+    .then(res => res.json())
+    .then(ramen => renderRamenImages([ramen]))
+}
+
+// function updateRamen(ramen) {
+//     console.log(ramen);
+//     fetch(`http://localhost:3000/ramens/${ramen.id}`, {
+//         method: 'PATCH',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(ramen)
+//     })
+//     .then(res => res.json())
+//     .then(ramen => renderRamenDetails(ramen));
+// }
